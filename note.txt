@@ -1,0 +1,19 @@
+--------tài khoản admin 
+username: admin
+pass:admin123
+
+---------tài khoản github
+username: vinhngo1907
+pass: Randjzumpo0o1907/
+
+---------tài khoản adobe
+username:vinhtrungngo1907@gmail.com
+pass: Randjzumpo0o1999/
+
+---------tài khoản docker
+username:vinhngo1999
+pass:randjzumpo0o1907
+
+---------tài khoản microsoft
+username: vinhngotrung1999@outlook.com.vn
+pass: randjzumpo0o1999

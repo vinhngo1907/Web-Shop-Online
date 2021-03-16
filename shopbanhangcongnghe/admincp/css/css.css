@@ -1,0 +1,82 @@
+/* CSS Document */
+*{
+	padding:0;
+	margin:0;
+}
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:small;
+	background:url(../../style/images/image-slider);
+}
+ul{
+	list-style-type:none;
+}
+a{
+	text-decoration:none;
+}
+.clr{
+	clear:both;
+}
+table{
+	border-collapse:collapse;
+}
+#admincp{
+
+}
+/* #header{
+	width:1300px;
+	height:100px;
+	border:1px solid #000;
+	text-align:center;
+	color:#f1004c;
+	line-height:100px;
+	font-weight:bold;
+	font-size:20px;
+}
+#menu{
+	margin:auto;
+	width:1300px;
+	height:40px;
+	background:#131b28;
+} 
+#menu ul li{
+	height:40px;
+	border-right:1px dotted #ccc;
+	float:left;
+}
+#menu ul li a{
+	color:#ccc;
+	font-weight:bold;
+	display:inline-block;
+	line-height:40px;
+	padding:0 10px;
+	text-align:center;
+}
+#menu ul li a:hover{
+	background:#064a5e;
+	color:#fff;
+}
+#menu img{
+	float:left;
+	padding:5px 8px;
+}
+#menu img:hover{
+	background:#064a5e;
+}*/
+/* #content{
+	width:1300px;
+	margin:auto;
+}
+#left{
+	float:left;
+	width:495px;
+}
+#right{
+	float:left;
+	width:800px;
+} */
+#footer{
+	width:1300px;
+	height:100px;
+	border:1px solid #000;
+}

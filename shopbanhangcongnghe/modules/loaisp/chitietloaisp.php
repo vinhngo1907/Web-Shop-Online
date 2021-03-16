@@ -1,0 +1,159 @@
+<?php 
+    $conn=mysqli_connect($tenmaychu,$tentaikhoan,$pass,$csdl);
+
+    $sql=mysqli_query($conn,"select * from hieusp where idhieusp='$_GET[id]'");
+    $dong=mysqli_fetch_array($sql);
+    $sql_sp=mysqli_query($conn,"select * from hanghoa where idhieusp='$_GET[id]'");
+?>
+<section id="product-all" class="collection">
+    <div class="banner-product">
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <img src="admincp/images/sp.png">
+            </div>
+        </div>
+    </div>
+    <div class="slider">
+        <div class="container">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="list-menu pull-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="widget" style="margin: 0px; min-height: 0px;">
+                        <p>Danh mục sản phẩm</p>
+                    </div>
+                    <ul class="main-ul">
+                        <?php 
+                            $sql_nhom=mysqli_query($conn,"select * from nhomhanghoa order by manhom asc");
+                            if($sql_nhom){
+                                while ($rows_nhom=mysqli_fetch_array($sql_nhom)) {
+                                    $id_nhom=$rows_nhom['manhom'];
+                        ?>
+                        <li>
+                            <a href="index.php?xem=loaisp&id=<?php echo $rows_nhom['manhom'] ?>" title="<?php echo $rows_nhom['tennhom'] ?>"><?php echo $rows_nhom['tennhom'] ?>
+                                <i class="fa fa-angle-right pull-right" aria-hidden="true"></i>
+                            </a>
+                            <ul class="sub" style="height: auto;">
+                            <?php 
+                                if($sql_hieusp=mysqli_query($conn,"select * from hanghoa,hieusp where hanghoa.manhom='$id_nhom' and hieusp.idhieusp=hanghoa.idhieusp")){
+                                while($rows_hieusp=mysqli_fetch_array($sql_hieusp)){
+                            ?> 
+                                <li><a href="index.php?xem=chitietloaisp&id=<?php echo $rows_hieusp['idhieusp'] ?>" title="<?php echo $rows_hieusp['tenhieusp'] ?>"><?php echo $rows_hieusp['tenhieusp'] ?></a></li>
+                            <?php 
+                                }
+                            }
+                            ?>
+                            </ul>
+                        </li>
+                       
+                        <?php 
+                            }
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 products-sale-off">
+                    <div class="widget">
+                        <p>Sản phẩm khuyến mãi</p>
+                        <div class="panel-left-body">
+                            <div id="post-list-footer" class="sidebar_menu">
+                                <?php $sql_sale=mysqli_query($conn,"select * from hanghoa");
+                                if($sql_sale){
+                                    while($dong_sale=mysqli_fetch_array($sql_sale)){ ?>
+                                <div class="spost clearfix">
+                                    <div class="entry-image">
+                                        <a href="index.php?xem=chitietsp&id=<?php echo $dong_sale['mshh'] ?>" title="">
+                                            <img src="admincp/modules/quanlyhh/uploads/<?php echo $dong_sale['hinhanh'] ?>">
+                                        </a>
+                                    </div>
+                                    <div class="entry-c" style="width:194px;">
+                                        <div class="entry-title">
+                                            <a class="ws-nw overflow ellipsis" href="index.php?xem=chitietsp&id=<?php echo $dong_sale['mshh'] ?>" title=""><?php echo $dong_sale['tenhh'] ?></a>
+                                        </div>
+                                        <ul class="entry-meta">
+                                            <li class="color">
+                                                <ins><?php echo number_format($dong_sale['giagoc']-$dong_sale['giagoc']*$dong_sale['sale_off']/100).'đ' ?></ins>
+                                                <del><?php echo number_format($dong_sale['giagoc']).'đ'?></del>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <?php }} ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 product-content">
+                <div class="product-wrap">
+                    <div class="collection__title">
+                        <h1><span><?php echo $dong['tenhieusp'] ?></span></h1>
+                        <div id="sort-by" class="hidden-xs">
+                            <label class="left hidden-xs" for="sort-select">Sắp xếp theo: </label>
+                            <form class="form-inline form-viewpro">
+                                <div class="form-group">
+                                    <select id="sortControl" class="form-control input-sm" onchange="sortby(this.value)">
+                                        <option value="number_buy-desc">Bán chạy nhất</option>
+                                        <option value="name-asc">A → Z</option>
+                                        <option value="name-desc">Z → A</option>
+                                        <option value="price-asc">Giá tăng dần</option>
+                                        <option value="price-desc">Giá giảm dần</option>
+                                        <option value="created-desc">Hàng mới nhất</option>
+                                        <option value="created-asc">Hàng cũ nhất</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="collection-filter" id="list-product">
+                            <div class="category-products clearfix">
+                                <div class="products-grid clearfix">
+                                    <?php 
+                                    if($sql_sp){ 
+                                        while($dong_sp=mysqli_fetch_array($sql_sp)){
+                                    ?>
+                                    <div class="col-md-3 col-lg-3 col-xs-6 col-6">
+                                        <div class="product-lt">
+                                            <div class="lt-product-group-image">
+                                                <a href="index.php?xem=chitietsp&id=<?php echo $dong_sp['mshh'] ?>" title="">
+                                                    <img class="img-p" src="admincp/modules/quanlyhh/uploads/<?php echo $dong_sp['hinhanh'] ?>" alt="">
+                                                </a>
+                                                <?php if($dong_sp['sale_off'] == 0){ ?>
+                                                <?php }else{?>
+                                                <div class="giam-percent">
+                                                    <span class="text-giam-percent"><?php echo 'Giảm '.$dong_sp['sale_off'].'%'; ?></span>
+                                                </div>
+                                                <?php }?>
+                                            </div>
+                                            <div class="lt-product-group-info">
+                                                <a href="index.php?xem=chitietsp&id=<?php echo $dong_sp['mshh'] ?>" title="">
+                                                    <h3><?php echo $dong_sp['tenhh'] ?></h3>
+                                                </a>
+                                                <div class="price-box">
+                                                    <?php if($dong_sp['sale_off'] == 0){ ?>
+                                                    <p class="special-price">
+                                                        <span class="price"><?php echo number_format($dong_sp['giagoc']).' đ' ?></span>
+                                                    </p>
+                                                    <?php }else{ ?>
+                                                    <p class="old-price">
+                                                        <span class="price" style="color: #ccc"><?php echo number_format($dong_sp['giagoc']).' đ' ?></span>
+                                                    </p>
+                                                    <p class="special-price">
+                                                        <span class="price"><?php echo number_format($dong_sp['giagoc']-($dong_sp['giagoc']*$dong_sp['sale_off']/100)).' đ' ?></span>
+                                                    </p>
+                                                    <?php }?>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php }}?>
+                                </div>
+                            </div>
+                            <div class="text-center pull-right">
+                                <ul class="pagination"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
