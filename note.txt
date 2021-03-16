@@ -1,0 +1,7 @@
+Account Admin
+username: admin
+passwrod: admin123
+
+Account Customer
+username: vinhngo1999
+password: vinhngo123
